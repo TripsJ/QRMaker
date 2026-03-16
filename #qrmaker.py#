@@ -1,0 +1,6 @@
+import qrcode
+from PyQt6.QtWidgets import QApplication, QWidget
+
+
+
+qrcode.make("https://google.com").save("test.png")

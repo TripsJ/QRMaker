@@ -270,3 +270,5 @@ __marimo__/
 
 #ignore pdf files
 *.pdf
+#ignore png files
+*.png

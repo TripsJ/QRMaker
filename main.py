@@ -1,11 +1,14 @@
 import sys
-
+from os import path
 import qrcode
 import ttkbootstrap as ttk
 
 
-def create_qr(url: str, filename: str):
-    qrcode.make(url).save(filename)
+def create_qr(url: str, filename: str, overwrite: bool = False):
+    if path.isfile(filename) and overwrite == False:
+        raise FileExistsError
+    else:
+        qrcode.make(url).save(filename)
 
 
 def remove_extension(name: str) -> str:
@@ -31,6 +34,17 @@ def text_mode():
         create_qr(url, f"{str_name}.png")
     except FileNotFoundError:
         print("The specified file could not be created.")
+    except FileExistsError:
+        print("The Given File Already exists\n")
+        if input("Overwrite? (y/n): ").lower() == "y":
+            try:
+                create_qr(url, f"{str_name}.png", overwrite=True)
+            except FileNotFoundError:
+                print("The specified file could not be created. Exiting")
+                sys.exit()
+        else:
+            print("User refused Overwrite. Exiting")
+            sys.exit()
 
 
 def main():

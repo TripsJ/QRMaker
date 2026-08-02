@@ -1,11 +1,11 @@
 import sys
-from os import path
+import os
 import qrcode
-import ttkbootstrap as ttk
+# import ttkbootstrap as ttk als ansatz für die gui später
 
 
 def create_qr(url: str, filename: str, overwrite: bool = False):
-    if path.isfile(filename) and overwrite == False:
+    if os.path.isfile(filename) and not overwrite:
         raise FileExistsError
     else:
         qrcode.make(url).save(filename)
@@ -15,7 +15,7 @@ def remove_extension(name: str) -> str:
     sep = "."
     stripped_filename = name.split(sep, 1)[0]
     if len(stripped_filename) < 1:
-        raise FileNotFoundError
+        raise ValueError
     else:
         return stripped_filename
 
@@ -24,10 +24,10 @@ def text_mode():
     # taking user input
     url = input("give me a link: ")
     filename = input("give me a filename: ")
-    # removing anything after a . so therearent double fileextensions
+    # removing anything after a . so there arent double file extensions
     try:
         str_name = remove_extension(filename)
-    except FileNotFoundError:
+    except ValueError:
         print("no filename specified, Abandonning")
         sys.exit()
     try:

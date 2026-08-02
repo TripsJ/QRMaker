@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 
@@ -20,6 +21,38 @@ def remove_extension(name: str) -> str:
         raise ValueError
     else:
         return stripped_filename
+
+
+def cmd_mode():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filename")
+    parser.add_argument("link")
+    args = parser.parse_args()
+    if args.filename and args.link:
+        overwrite = False
+        try:
+            f = remove_extension(args.filename)
+            filename = f"{f}.png"
+        except ValueError as e:
+            print(f"""Invalid Filename specified\n
+            The returned exception is {e}\n
+            Exiting.""")
+            sys.exit()
+        while True:
+            try:
+                create_qr(args.link, filename, overwrite=overwrite)
+            except FileExistsError:
+                print("The Given File Already exists\n")
+                if input("Overwrite? (y/n): ").lower() == "y":
+                    overwrite = True
+                else:
+                    print("User refused Overwrite. Exiting")
+                    sys.exit()
+            except OSError as e:
+                print(f"""The specified file could not be created.\n
+                The returned Error is {e}\n
+                Exiting""")
+                sys.exit()
 
 
 def text_mode() -> None:
@@ -57,7 +90,10 @@ def text_mode() -> None:
 
 
 def main() -> None:
-    text_mode()
+    if len(sys.argv) == 1:
+        text_mode()
+    else:
+        cmd_mode()
 
 
 if __name__ == "__main__":

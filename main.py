@@ -41,6 +41,7 @@ def cmd_mode():
         while True:
             try:
                 create_qr(args.link, filename, overwrite=overwrite)
+                break
             except FileExistsError:
                 print("The Given File Already exists\n")
                 if input("Overwrite? (y/n): ").lower() == "y":

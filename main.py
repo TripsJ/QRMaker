@@ -1,3 +1,5 @@
+"""Creating QR Codes via TUI, or commandline."""
+
 import argparse
 import os
 import sys
@@ -8,6 +10,20 @@ import qrcode
 
 
 def create_qr(url: str, filename: str, overwrite: bool = False) -> None:
+    """Create a file containing a qrcode.
+
+    Args:
+        url: the contend encoded into the qrcode.
+        filename: the name of the created file.
+        overwrite: a boolean defining wether or not to overwrite an exsisting file.
+
+    Returns:
+        None.
+
+    Raises:
+        FileExistsError if the File it Creates already exsists.
+
+    """
     if os.path.isfile(filename) and not overwrite:
         raise FileExistsError
     else:
@@ -15,6 +31,18 @@ def create_qr(url: str, filename: str, overwrite: bool = False) -> None:
 
 
 def remove_extension(name: str) -> str:
+    """Remove everything behind the first . in a string.
+
+    Args:
+       name: a string representing a filename.
+
+    Returns:
+       Filename with everything after the first . removed.
+
+    Raises:
+       ValueError if String is empty after modification.
+
+    """
     sep = "."
     stripped_filename = name.split(sep, 1)[0]
     if len(stripped_filename) < 1:
@@ -24,6 +52,18 @@ def remove_extension(name: str) -> str:
 
 
 def cmd_mode() -> None:
+    """Take in arguments from the commandline and call create_qr.
+
+    Args:
+       None.
+
+    Returns:
+       None.
+
+    Raises:
+       Nothing.
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("filename")
     parser.add_argument("link")
@@ -57,6 +97,18 @@ def cmd_mode() -> None:
 
 
 def text_mode() -> None:
+    """Ask User for values on the Commandline and calls create_qr.
+
+    Args:
+       None.
+
+    Returns:
+       None.
+
+    Raises:
+       Nothing.
+
+    """
     # taking user input
     url = input("give me a link: ")
     filename = input("give me a filename: ")
@@ -66,7 +118,7 @@ def text_mode() -> None:
     except ValueError:
         print("no filename specified, Abandonning")
         sys.exit()
-    if not url:  # empt strings are falsy
+    if not url:  # empty strings are falsy
         print("this would create an empty qr code. Abandonning")
         sys.exit()
 
@@ -91,6 +143,18 @@ def text_mode() -> None:
 
 
 def main() -> None:
+    """Execute the program and decide what mode should be used.
+
+    Args:
+       None.
+
+    Returns:
+       None.
+
+    Raises:
+       Nothing.
+
+    """
     if len(sys.argv) == 1:
         text_mode()
     else:

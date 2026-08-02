@@ -10,7 +10,7 @@ def create_qr(url: str, filename: str, overwrite: bool = False) -> None:
     if os.path.isfile(filename) and not overwrite:
         raise FileExistsError
     else:
-        qrcode.make(url).save(filename)
+        qrcode.make(url).save(filename)  # type: ignore[arg-type]  # str-Pfad ist zur Laufzeit gültig, Stub ist zu eng
 
 
 def remove_extension(name: str) -> str:

@@ -6,7 +6,7 @@ import sys
 
 import qrcode
 
-# import ttkbootstrap as ttk als ansatz für die gui später
+# import ttkbootstrap as ttk as startingpoint for the gui
 
 
 def create_qr(url: str, filename: str, overwrite: bool = False) -> None:
@@ -15,19 +15,16 @@ def create_qr(url: str, filename: str, overwrite: bool = False) -> None:
     Args:
         url: the contend encoded into the qrcode.
         filename: the name of the created file.
-        overwrite: a boolean defining wether or not to overwrite an exsisting file.
-
-    Returns:
-        None.
+        overwrite: a boolean defining whether or not to overwrite an existing file.
 
     Raises:
-        FileExistsError if the File it Creates already exsists.
+        FileExistsError if the File it Creates already exists.
 
     """
     if os.path.isfile(filename) and not overwrite:
         raise FileExistsError
     else:
-        qrcode.make(url).save(filename)  # type: ignore[arg-type]  # str-Pfad ist zur Laufzeit gültig, Stub ist zu eng
+        qrcode.make(url).save(filename)  # type: ignore[arg-type]  # str-Path valid at Runtime, Stub too restrictive
 
 
 def remove_extension(name: str) -> str:
@@ -54,14 +51,8 @@ def remove_extension(name: str) -> str:
 def cmd_mode() -> None:
     """Take in arguments from the commandline and call create_qr.
 
-    Args:
-       None.
-
-    Returns:
-       None.
-
     Raises:
-       Nothing.
+       SystemExit If Filename Invalid, Overwrite denide or Filesystem Error
 
     """
     parser = argparse.ArgumentParser()
@@ -99,27 +90,21 @@ def cmd_mode() -> None:
 def text_mode() -> None:
     """Ask User for values on the Commandline and calls create_qr.
 
-    Args:
-       None.
-
-    Returns:
-       None.
-
     Raises:
-       Nothing.
+       SystemExit If Filename Invalid, Overwrite denide or Filesystem Error
 
     """
     # taking user input
     url = input("give me a link: ")
     filename = input("give me a filename: ")
-    # removing anything after a . so there arent double file extensions
+    # removing anything after a . so there aren't double file extensions
     try:
         str_name = remove_extension(filename)
     except ValueError:
-        print("no filename specified, Abandonning")
+        print("no filename specified, Abandoning")
         sys.exit()
     if not url:  # empty strings are falsy
-        print("this would create an empty qr code. Abandonning")
+        print("this would create an empty qr code. Abandoning")
         sys.exit()
 
     target = f"{str_name}.png"
@@ -143,18 +128,7 @@ def text_mode() -> None:
 
 
 def main() -> None:
-    """Execute the program and decide what mode should be used.
-
-    Args:
-       None.
-
-    Returns:
-       None.
-
-    Raises:
-       Nothing.
-
-    """
+    """Execute the program and decide what mode should be used."""
     if len(sys.argv) == 1:
         text_mode()
     else:

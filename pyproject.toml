@@ -24,6 +24,7 @@ extend-select = [
 
 [dependency-groups]
 dev = [
+    "codespell>=2.4.3",
     "mypy>=2.3.0",
     "pre-commit>=4.6.1",
     "types-qrcode>=8.2.0.20260518",

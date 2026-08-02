@@ -23,7 +23,7 @@ def remove_extension(name: str) -> str:
         return stripped_filename
 
 
-def cmd_mode():
+def cmd_mode() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("filename")
     parser.add_argument("link")

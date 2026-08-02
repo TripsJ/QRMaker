@@ -18,7 +18,8 @@ def create_qr(url: str, filename: str, overwrite: bool = False) -> None:
         overwrite: a boolean defining whether or not to overwrite an existing file.
 
     Raises:
-        FileExistsError if the File it Creates already exists.
+        FileExistsError: the target file already exists and overwrite is False.
+        OSError: the file cannot be written, e.g. an invalid path.
 
     """
     if os.path.isfile(filename) and not overwrite:
@@ -37,7 +38,7 @@ def remove_extension(name: str) -> str:
        Filename with everything after the first . removed.
 
     Raises:
-       ValueError if String is empty after modification.
+       ValueError: if String is empty after modification.
 
     """
     sep = "."
@@ -52,7 +53,7 @@ def cmd_mode() -> None:
     """Take in arguments from the commandline and call create_qr.
 
     Raises:
-       SystemExit If Filename Invalid, Overwrite denide or Filesystem Error
+       SystemExit: If Filename Invalid, Overwrite denied or Filesystem Error
 
     """
     parser = argparse.ArgumentParser()
@@ -91,7 +92,7 @@ def text_mode() -> None:
     """Ask User for values on the Commandline and calls create_qr.
 
     Raises:
-       SystemExit If Filename Invalid, Overwrite denide or Filesystem Error
+       SystemExit: If Filename Invalid, Overwrite denied or Filesystem Error
 
     """
     # taking user input

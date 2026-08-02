@@ -32,7 +32,7 @@ def text_mode() -> None:
     except ValueError:
         print("no filename specified, Abandonning")
         sys.exit()
-    if url == "":
+    if not url:  # empt strings are falsy
         print("this would create an empty qr code. Abandonning")
         sys.exit()
 

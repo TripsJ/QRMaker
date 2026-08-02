@@ -35,20 +35,22 @@ def text_mode() -> None:
     if url == "":
         print("this would create an empty qr code. Abandonning")
         sys.exit()
-    try:
-        create_qr(url, f"{str_name}.png")
-    except FileNotFoundError:
-        print("The specified file could not be created.")
-    except FileExistsError:
-        print("The Given File Already exists\n")
-        if input("Overwrite? (y/n): ").lower() == "y":
-            try:
-                create_qr(url, f"{str_name}.png", overwrite=True)
-            except FileNotFoundError:
-                print("The specified file could not be created. Exiting")
+
+        target = f"{str_name}.png"
+        overwrite = False
+    while True:
+        try:
+            create_qr(url, target, overwrite)
+
+        except FileExistsError:
+            print("The Given File Already exists\n")
+            if input("Overwrite? (y/n): ").lower() == "y":
+                overwrite = True
+            else:
+                print("User refused Overwrite. Exiting")
                 sys.exit()
-        else:
-            print("User refused Overwrite. Exiting")
+        except FileNotFoundError:
+            print("The specified file could not be created. Exiting")
             sys.exit()
 
 

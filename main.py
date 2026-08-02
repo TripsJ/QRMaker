@@ -36,12 +36,12 @@ def text_mode() -> None:
         print("this would create an empty qr code. Abandonning")
         sys.exit()
 
-        target = f"{str_name}.png"
-        overwrite = False
+    target = f"{str_name}.png"
+    overwrite = False
     while True:
         try:
             create_qr(url, target, overwrite)
-
+            break
         except FileExistsError:
             print("The Given File Already exists\n")
             if input("Overwrite? (y/n): ").lower() == "y":

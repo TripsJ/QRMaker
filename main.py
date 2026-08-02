@@ -1,10 +1,12 @@
-import sys
 import os
+import sys
+
 import qrcode
+
 # import ttkbootstrap as ttk als ansatz für die gui später
 
 
-def create_qr(url: str, filename: str, overwrite: bool = False):
+def create_qr(url: str, filename: str, overwrite: bool = False) -> None:
     if os.path.isfile(filename) and not overwrite:
         raise FileExistsError
     else:
@@ -20,7 +22,7 @@ def remove_extension(name: str) -> str:
         return stripped_filename
 
 
-def text_mode():
+def text_mode() -> None:
     # taking user input
     url = input("give me a link: ")
     filename = input("give me a filename: ")
@@ -29,6 +31,9 @@ def text_mode():
         str_name = remove_extension(filename)
     except ValueError:
         print("no filename specified, Abandonning")
+        sys.exit()
+    if url == "":
+        print("this would create an empty qr code. Abandonning")
         sys.exit()
     try:
         create_qr(url, f"{str_name}.png")
@@ -47,7 +52,7 @@ def text_mode():
             sys.exit()
 
 
-def main():
+def main() -> None:
     text_mode()
 
 

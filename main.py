@@ -49,8 +49,10 @@ def text_mode() -> None:
             else:
                 print("User refused Overwrite. Exiting")
                 sys.exit()
-        except FileNotFoundError:
-            print("The specified file could not be created. Exiting")
+        except OSError as e:
+            print(f"""The specified file could not be created.\n
+            The returned Error is {e}\n
+            Exiting""")
             sys.exit()
 
 

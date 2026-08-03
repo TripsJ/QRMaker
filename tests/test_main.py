@@ -16,4 +16,9 @@ def test_raises_Value_Error_on_empty_name():
     """Testing if ValueError gets raised when expected."""
     with pytest.raises(ValueError):
         remove_extension("")
+
+    with pytest.raises(
+        ValueError
+    ):  # the context manager gets exited as son as the first ValueError is encountered,
+        # so you need one per check
         remove_extension(".bmp")

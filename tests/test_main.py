@@ -41,3 +41,21 @@ def test_file_creation_for_create_qr(
         "https://example.com", str(target)
     )  # str makes sure the temporary path gets converted into a string
     assert target.is_file()  # check if test.png exists
+
+
+def test_file_exsist_error_for_create_qr(
+    tmp_path: Path,
+) -> None:  # tmp_path:Path is used to create a temporary
+    # directory that gets cleaned up after testing
+    """Testing if create qr actually creates filesystem.
+
+    Arguments:
+        tmp_path: Fixture to create a temporary directory.
+
+    """
+    target = tmp_path / "error.png"
+    target.write_bytes(b"uselesscontent")  # creates a bytefile named error.png
+    with pytest.raises(FileExistsError):
+        create_qr(
+            "https://example.com", str(target)
+        )  # str makes sure the temporary path gets converted into a string

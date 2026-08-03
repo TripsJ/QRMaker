@@ -14,6 +14,11 @@ def test_remove_extension() -> None:
     assert remove_extension("photo.bmp") == "photo"
 
 
+def test_remove_extension_for_file_starting_with_dot():
+    """Test if fuction igniores the first . if the filename starts with ."""
+    assert remove_extension(".pic.jpg") == ".pic"
+
+
 def test_raises_value_error_on_empty_name() -> None:
     """Testing if ValueError gets raised when expected."""
     with pytest.raises(ValueError):
@@ -47,7 +52,7 @@ def test_file_exsist_error_for_create_qr(
     tmp_path: Path,
 ) -> None:  # tmp_path:Path is used to create a temporary
     # directory that gets cleaned up after testing
-    """Testing if create qr actually creates filesystem.
+    """Testing if create qr raises Error on already exsisting file.
 
     Arguments:
         tmp_path: Fixture to create a temporary directory.

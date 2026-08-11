@@ -48,8 +48,14 @@ uv run main.py
 
 - [ ] add a Gui
 - [ ] colored qrcodes
+- [ ] add tests with full coverage of the code
 
 See the [open issues](https://github.com/TripsJ/QRMaker/issues) for a full list of proposed features and known issues.
+
+## Testing Framework
+
+To test this code we use the pytest Framework.
+Tests are stored in the tests folder and follow a test_testedFilename.py naming convention.
 
 ## Contributing
 

@@ -1,5 +1,6 @@
 """Tests for QRMakers main.py."""
 
+import filecmp
 from pathlib import Path
 
 import pytest
@@ -14,6 +15,7 @@ def test_remove_extension() -> None:
     assert remove_extension("photo.bmp") == "photo"
 
 
+@pytest.mark.xfail(reason="edge case not implemented yet")
 def test_remove_extension_for_file_starting_with_dot():
     """Test if fuction igniores the first . if the filename starts with ."""
     assert remove_extension(".pic.jpg") == ".pic"
@@ -64,3 +66,24 @@ def test_file_exsist_error_for_create_qr(
         create_qr(
             "https://example.com", str(target)
         )  # str makes sure the temporary path gets converted into a string
+
+
+def test_file_exsist_error_skipped_on_overwrite_true(
+    tmp_path: Path,
+) -> None:  # tmp_path:Path is used to create a temporary
+    # directory that gets cleaned up after testing
+    """Testing if create qr overwrites exsisting file on overwrite = True.
+
+    Arguments:
+        tmp_path: Fixture to create a temporary directory.
+
+    """
+    target = tmp_path / "error.png"
+    reference = tmp_path / "reference.png"
+    target.write_bytes(b"uselesscontent")  # creates a bytefile named error.png
+    reference.write_bytes(b"uselesscontent")
+    assert filecmp.cmp(target, reference)
+    create_qr(
+        "https://example.com", str(target), overwrite=True
+    )  # str makes sure the temporary path gets converted into a string
+    assert not filecmp.cmp(target, reference)

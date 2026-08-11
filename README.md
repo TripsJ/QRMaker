@@ -11,6 +11,7 @@ A simple Qrcode Creator, give it a url and a Filename and it gives you a png fil
 - [Installation](#installation)
 - [Usage](#usage)
 - [Roadmap](#roadmap)
+- [Testintg](#testing)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)

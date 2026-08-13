@@ -16,7 +16,7 @@ def test_remove_extension() -> None:
 
 
 @pytest.mark.xfail(reason="edge case not implemented yet")
-def test_remove_extension_for_file_starting_with_dot():
+def test_remove_extension_for_file_starting_with_dot() -> None:
     """Test if fuction igniores the first . if the filename starts with ."""
     assert remove_extension(".pic.jpg") == ".pic"
 

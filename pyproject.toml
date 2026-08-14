@@ -33,5 +33,6 @@ dev = [
     "pre-commit>=4.6.1",
     "pytest>=9.1.1", # Python test suite.
     "pytest-cov>=7.1.0", # allowes to see what portions of code actually get tested.
+    "pytest-depends>=1.0.1",
     "types-qrcode>=8.2.0.20260518",
 ]

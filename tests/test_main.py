@@ -17,7 +17,7 @@ def test_remove_extension() -> None:
 
 @pytest.mark.xfail(reason="edge case not implemented yet")
 def test_remove_extension_for_file_starting_with_dot() -> None:
-    """Test if fuction igniores the first . if the filename starts with ."""
+    """Test if function ignores the first . if the filename starts with ."""
     assert remove_extension(".pic.jpg") == ".pic"
 
 
@@ -50,7 +50,7 @@ def test_file_creation_for_create_qr(
     assert target.is_file()  # check if test.png exists
 
 
-def test_file_exsist_error_for_create_qr(
+def test_file_exist_error_for_create_qr(
     tmp_path: Path,
 ) -> None:  # tmp_path:Path is used to create a temporary
     # directory that gets cleaned up after testing
@@ -68,12 +68,12 @@ def test_file_exsist_error_for_create_qr(
         )  # str makes sure the temporary path gets converted into a string
 
 
-@pytest.mark.depends(on=["test_file_exsist_error_for_create_qr"])
-def test_file_exsist_error_skipped_on_overwrite_true(
+@pytest.mark.depends(on=["test_file_exist_error_for_create_qr"])
+def test_file_exist_error_skipped_on_overwrite_true(
     tmp_path: Path,
 ) -> None:  # tmp_path:Path is used to create a temporary
     # directory that gets cleaned up after testing
-    """Testing if create qr overwrites exsisting file on overwrite = True.
+    """Testing if create qr overwrites existing file on overwrite = True.
 
     Arguments:
         tmp_path: Fixture to create a temporary directory.

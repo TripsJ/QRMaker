@@ -77,3 +77,4 @@ Distributed under the MIT License. See https://opensource.org/license/MIT for mo
 Project Link: [https://github.com/TripsJ/QRMaker](https://github.com/TripsJ/QRMaker)
 Test
 test2
+test3

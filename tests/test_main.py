@@ -87,3 +87,6 @@ def test_file_exist_error_skipped_on_overwrite_true(
         "https://example.com", str(target), overwrite=True
     )  # str makes sure the temporary path gets converted into a string
     assert not filecmp.cmp(target, reference)
+
+    def test_pass():
+        pass

@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from main import create_qr, remove_extension, text_mode
+from main import cmd_mode, create_qr, remove_extension, text_mode
 
 
 def test_remove_extension() -> None:
@@ -108,4 +108,20 @@ def test_create_file_from_input(
         "builtins.input", lambda prompt="": next(responses)
     )  # next is a function that, on each call, returns the next item of an iterator
     text_mode()
+    assert target.is_file()
+
+
+def test_create_file_from_cmd(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """Testing the text_mode() function.
+
+    Args:
+        monkeypatch: fixture used to simulate inputs temporarily
+        tmp_path: Fixture to create a temporary directory.
+
+    """
+    target = tmp_path / "test.png"
+    monkeypatch.setattr(
+        "sys.argv", ["main.py", str(target), "https://test.com"]
+    )  # next is a function that, on each call, returns the next item of an iterator
+    cmd_mode()
     assert target.is_file()

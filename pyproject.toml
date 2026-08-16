@@ -26,13 +26,18 @@ extend-select = [
 pythonpath = ["."]
 testpaths = ["tests"]
 
+[tool.codespell]
+skip = "./*_cache,*_lock"
+count = true
+
 [dependency-groups]
 dev = [
     "codespell>=2.4.3",
     "mypy>=2.3.0",
     "pre-commit>=4.6.1",
     "pytest>=9.1.1", # Python test suite.
-    "pytest-cov>=7.1.0", # allowes to see what portions of code actually get tested.
+    "pytest-cov>=7.1.0", # allows to see what portions of code actually get tested.
     "pytest-depends>=1.0.1",
+    "tomli>=2.4.1", #needed to configure codespell with pyproject.toml
     "types-qrcode>=8.2.0.20260518",
 ]

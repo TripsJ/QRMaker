@@ -39,7 +39,7 @@ def test_file_creation_for_create_qr(
     # directory that gets cleaned up after testing
     """Testing if create qr actually creates filesystem.
 
-    Arguments:
+    Args:
         tmp_path: Fixture to create a temporary directory.
 
     """
@@ -56,7 +56,7 @@ def test_file_exist_error_for_create_qr(
     # directory that gets cleaned up after testing
     """Testing if create qr raises Error on already existing file.
 
-    Arguments:
+    Args:
         tmp_path: Fixture to create a temporary directory.
 
     """
@@ -74,7 +74,7 @@ def test_file_exist_error_skipped_on_overwrite_true(
     # directory that gets cleaned up after testing
     """Testing if create qr overwrites existing file on overwrite = True.
 
-    Arguments:
+    Args:
         tmp_path: Fixture to create a temporary directory.
 
     """
@@ -92,7 +92,7 @@ def test_file_exist_error_skipped_on_overwrite_true(
 def test_create_file_from_input(monkeypatch, tmp_path: Path) -> None:
     """Testing the text_mode() function.
 
-    Arguments:
+    Args:
         monkeypatch: fixture used to simulate inputs temporarily
         tmp_path: Fixture to create a temporary directory.
 

@@ -89,7 +89,9 @@ def test_file_exist_error_skipped_on_overwrite_true(
     assert not filecmp.cmp(target, reference)
 
 
-def test_create_file_from_input(monkeypatch, tmp_path: Path) -> None:
+def test_create_file_from_input(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     """Testing the text_mode() function.
 
     Args:

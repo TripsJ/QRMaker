@@ -143,7 +143,7 @@ def test_invalide_filename_from_cmd(
 
 @pytest.mark.parametrize("directory", ["hubble/", "1/", "??/"])
 def test_invalide_directory_from_cmd(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, directory
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, directory: str
 ) -> None:
     """Testing the cmd_mode() function raises correct Errors.
 

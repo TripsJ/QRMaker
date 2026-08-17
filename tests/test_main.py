@@ -120,8 +120,42 @@ def test_create_file_from_cmd(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -
 
     """
     target = tmp_path / "test.png"
-    monkeypatch.setattr(
-        "sys.argv", ["main.py", str(target), "https://test.com"]
-    )  # next is a function that, on each call, returns the next item of an iterator
+    monkeypatch.setattr("sys.argv", ["main.py", str(target), "https://test.com"])
     cmd_mode()
     assert target.is_file()
+
+
+def test_invalide_filename_from_cmd(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Testing the cmd_mode() function raises the ValueError on invalid filename.
+
+    Args:
+        monkeypatch: fixture used to simulate inputs temporarily
+        tmp_path: Fixture to create a temporary directory.
+
+    """
+    target = tmp_path / "\x00teeesst"
+    monkeypatch.setattr("sys.argv", ["main.py", str(target), "https://test.com"])
+    with pytest.raises(ValueError):
+        cmd_mode()
+
+
+@pytest.mark.parametrize("directory", ["hubble/", "1/", "??/"])
+def test_invalide_directory_from_cmd(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, directory
+) -> None:
+    """Testing the cmd_mode() function raises correct Errors.
+
+    Function should raise the OSError and Exits on invalid directory.
+
+    Args:
+        monkeypatch: fixture used to simulate inputs temporarily
+        tmp_path: Fixture to create a temporary directory.
+        directory: directory name from mark.parametrize
+
+    """
+    target = tmp_path / f"{directory}" / "test"
+    monkeypatch.setattr("sys.argv", ["main.py", str(target), "https://test.com"])
+    with pytest.raises(SystemExit):
+        cmd_mode()
